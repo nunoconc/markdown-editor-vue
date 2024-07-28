@@ -1,19 +1,33 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import Markdown from './components/Markdown.vue'
+import Page from './components/Page.vue'
+import { ref } from 'vue';
+
+const text = ref("# Example text \n ##AHAHAH");
 </script>
 
 <template>
-  <header>
+  <header class="header-container">
     <div>
-      <HelloWorld msg="You did it!" />
+      Header Goes Here
     </div>
   </header>
-
-  <main>
-    <TheWelcome msg="Banana"/>
+  <main class="main-container">
+    <Markdown text="{{ text }}" />
+    <Page text="{{ text }}"/>
   </main>
 </template>
 
 <style scoped>
+
+.header-container{
+  margin-top: 0;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+
 </style>

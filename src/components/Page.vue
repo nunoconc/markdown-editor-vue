@@ -1,6 +1,6 @@
 <script setup>
 defineProps({
-  msg: {
+  text: {
     type: String,
     required: true
   }
@@ -9,8 +9,8 @@ defineProps({
 
 <template>
   <div>
-    <h1>HellWorld File</h1>
-    <p>This is the HelloWorld file - {{ msg }}</p>
+    <h1>Check your output result:</h1>
+    <p>{{ text }}</p>
   </div>
 </template>
 

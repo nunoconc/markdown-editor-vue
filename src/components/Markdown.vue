@@ -1,6 +1,6 @@
 <script setup>
 defineProps({
-  msg: {
+  text: {
     type: String,
     required: true
   }
@@ -9,7 +9,10 @@ defineProps({
 
 <template>
   <div>
-    <h1>This is the The Welcome File</h1>
-    <p> This is the paragraph - {{ msg }}</p>
+    <h1>Write here your markdown text:</h1>
+    <p>{{ text }}</p>
   </div>
 </template>
+
+<style scoped>
+</style>
