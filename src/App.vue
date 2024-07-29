@@ -1,9 +1,14 @@
 <script setup>
 import Markdown from './components/Markdown.vue'
 import Page from './components/Page.vue'
-import { ref } from 'vue';
+import {onMounted, ref} from "vue";
 
-const text = ref("# Example text \n ##AHAHAH");
+const text = ref("");
+
+onMounted(()=>{
+  text.value = '#Example \n dasljjdad ##ljdajda  *ndadsad'
+})
+
 </script>
 
 <template>
@@ -13,8 +18,8 @@ const text = ref("# Example text \n ##AHAHAH");
     </div>
   </header>
   <main class="main-container">
-    <Markdown text="{{ text }}" />
-    <Page text="{{ text }}"/>
+    <Markdown :text="text" />
+    <Page :text="text" />
   </main>
 </template>
 

@@ -9,10 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "markdown-to-jsx": "^7.4.7",
+    "marked": "^13.0.3",
     "vue": "^3.4.29"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
-    "vite": "^5.3.1"
+    "vite": "^5.3.1",
+    "vue-tsc": "^2.0.29"
   }
 }
