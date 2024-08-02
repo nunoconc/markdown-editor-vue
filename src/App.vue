@@ -4,35 +4,46 @@ import Page from './components/Page.vue'
 import {onMounted, ref} from "vue";
 
 const text = ref("");
+const callback = ref((value)=>{
+  text.value = value;
+})
 
 onMounted(()=>{
-  text.value = '#Example \n dasljjdad ##ljdajda  *ndadsad'
+  text.value = 'Write here your markdown text...'
 })
 
 </script>
 
 <template>
-  <header class="header-container">
-    <div>
+  <header>
+    <div class="header-container">
       Header Goes Here
     </div>
   </header>
   <main class="main-container">
-    <Markdown :text="text" />
-    <Page :text="text" />
+    <Markdown class="item" :text="text"  :callback="callback"/>
+    <Page class="item" :text="text" />
   </main>
 </template>
 
 <style scoped>
 
 .header-container{
-  margin-top: 0;
+  margin: 0 auto 50px;
+  background-color: #bac2d0;
+  font-size: 40px;
+  text-align: center;
 }
 
 .main-container {
   display: flex;
   flex-direction: row;
-  margin: auto;
+  margin: 0;
+}
+
+.item {
+  margin: auto 20px;
+  align-self: center;
 }
 
 </style>
