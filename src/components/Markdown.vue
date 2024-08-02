@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 defineProps({
   text: {
     type: String,
@@ -9,6 +9,7 @@ defineProps({
     required: true,
   }
 })
+
 </script>
 
 <template>
@@ -17,7 +18,7 @@ defineProps({
     <textarea
       class="text"
       :value="text"
-      @input="event => callback(event.target.value)">
+      @input="(event: Event) => callback((event.target as HTMLInputElement).value)">
     </textarea>
   </div>
 </template>
