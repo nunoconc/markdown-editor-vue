@@ -2,14 +2,16 @@
 import Markdown from './components/Markdown.vue'
 import Page from './components/Page.vue'
 import {onMounted, ref} from "vue";
+import store from "./store";
 
 const text = ref("");
 const callback = ref((value)=>{
   text.value = value;
+  store.commit('saveMarkdown', value);
 })
 
 onMounted(()=>{
-  text.value = 'Write here your markdown text...'
+  text.value = store.getters.getMarkdown;
 })
 
 </script>
