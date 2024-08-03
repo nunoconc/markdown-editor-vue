@@ -9,7 +9,7 @@ defineProps({
 
 <template>
   <div class="container">
-    <h1>Check your output result:</h1>
+    <h1 class="title">Check here:</h1>
     <textarea
         readonly
         :value="text"
@@ -26,11 +26,17 @@ defineProps({
   height: 500px;
 }
 
+.title{
+  font-size: 30px;
+}
+
 .text{
   border: none;
   outline: none;
   resize: none;
   width: 100%;
   height: 100%;
+  background-color: inherit;
+  color: inherit;
 }
 </style>

@@ -1,17 +1,17 @@
-<script setup>
-import Markdown from './components/Markdown.vue'
-import Page from './components/Page.vue'
-import {onMounted, ref} from "vue";
-import store from "./store";
+<script setup lang="ts">
+import Markdown from './components/Markdown.vue';
+import Page from './components/Page.vue';
+import {onMounted, ref, watch} from 'vue';
+import store from './store';
 
 const text = ref("");
-const callback = ref((value)=>{
-  text.value = value;
-  store.commit('saveMarkdown', value);
-})
 
 onMounted(()=>{
-  text.value = store.getters.getMarkdown;
+  text.value = store.state.markdown;
+})
+
+watch(store.state, (state)=>{
+  text.value = state.markdown;
 })
 
 </script>
@@ -19,11 +19,11 @@ onMounted(()=>{
 <template>
   <header>
     <div class="header-container">
-      Header Goes Here
+      <h1 class="title">Markdown Editor</h1>
     </div>
   </header>
   <main class="main-container">
-    <Markdown class="item" :text="text"  :callback="callback"/>
+    <Markdown class="item" :text="text" />
     <Page class="item" :text="text" />
   </main>
 </template>
@@ -31,10 +31,12 @@ onMounted(()=>{
 <style scoped>
 
 .header-container{
-  margin: 0 auto 50px;
-  background-color: #bac2d0;
+  margin: 50px 20px;
+  text-align: initial;
+}
+
+.title{
   font-size: 40px;
-  text-align: center;
 }
 
 .main-container {
