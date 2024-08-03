@@ -5,6 +5,7 @@ import {onMounted, ref, watch} from 'vue';
 import store from './store';
 
 const text = ref("");
+const url = ref("");
 
 onMounted(()=>{
   text.value = store.state.markdown;
@@ -12,6 +13,7 @@ onMounted(()=>{
 
 watch(store.state, (state)=>{
   text.value = state.markdown;
+  url.value = state.url;
 })
 
 </script>
@@ -20,6 +22,7 @@ watch(store.state, (state)=>{
   <header>
     <div class="header-container">
       <h1 class="title">Markdown Editor</h1>
+      <button class="action-download" @click.prevent="store.dispatch('downloadMarkdown')">Download</button>
     </div>
   </header>
   <main class="main-container">
@@ -32,8 +35,31 @@ watch(store.state, (state)=>{
 
 .header-container{
   margin: 50px 20px;
-  text-align: initial;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
+
+.action-download{
+  background: #e5ddd1;
+  border-radius: 5px;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 12px 16px;
+  text-decoration: none;
+}
+
+.action-download:hover {
+  background: #a4a29d;
+}
+
+.action-download:active {
+  position:relative;
+  top:1px;
+}
+
 
 .title{
   font-size: 40px;

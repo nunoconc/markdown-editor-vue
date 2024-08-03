@@ -21,8 +21,13 @@ const store = createStore({
         }
     },*/
     actions: {
-        downloadMarkdown (state, text) {
-
+        downloadMarkdown (context) {
+            const data = new Blob([context.state.markdown], {type: 'text/plain'});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(data);
+            link.download = key + '.md';
+            link.click();
+            URL.revokeObjectURL(link.href);
         }
     },
 })
