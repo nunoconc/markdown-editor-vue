@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { translateMarkdownToHTML } from '../helpers/markdownHelper';
+
 defineProps({
   text: {
     type: String,
@@ -10,12 +12,11 @@ defineProps({
 <template>
   <div class="container">
     <h1 class="title">Check here:</h1>
-    <textarea
-        readonly
-        :value="text"
+    <div
         class="text"
+        v-html="translateMarkdownToHTML(text)"
     >
-    </textarea>
+    </div>
   </div>
 </template>
 

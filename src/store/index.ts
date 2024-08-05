@@ -2,14 +2,18 @@ import { createStore } from 'vuex';
 
 const key = 'markdown-text';
 
+interface IState {
+    markdown: string;
+}
+
 const store = createStore({
-    state () {
+    state () :IState {
         return {
             markdown: localStorage.getItem(key) || '',
         }
     },
     mutations: {
-        saveMarkdown (state, text: string) {
+        saveMarkdown (state: IState, text: string) {
             state.markdown = text;
             localStorage.setItem(key, text);
         }
@@ -21,8 +25,8 @@ const store = createStore({
         }
     },*/
     actions: {
-        downloadMarkdown (context) {
-            const data = new Blob([context.state.markdown], {type: 'text/plain'});
+        downloadMarkdown ({ state}) {
+            const data = new Blob([state.markdown], {type: 'text/plain'});
             const link = document.createElement('a');
             link.href = URL.createObjectURL(data);
             link.download = key + '.md';
