@@ -11,7 +11,7 @@ defineProps({
 
 <template>
   <div class="container">
-    <h1 class="title">Check here:</h1>
+    <h1 class="title">Check here</h1>
     <div
         class="text"
         v-html="translateMarkdownToHTML(text)"

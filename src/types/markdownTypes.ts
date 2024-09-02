@@ -75,13 +75,37 @@ export const markdownSyntaxList: MarkdownSyntax[] = [
         end: /\*{1}/,
     },
     {
+        key: 'break',
+        category: SyntaxCategories.ELEMENT,
+        tag: {
+            open: '<p>',
+            close: '</p>',
+        },
+        start: /\\^/,
+        end: /\\^/,
+    },
+    // {
+    //     key: 'mark',
+    //     category: SyntaxCategories.ELEMENT,
+    //     tag: {
+    //         open: '<mark>',
+    //         close: '</mark>',
+    //     },
+    //     start: /#[^\s]/,
+    //     end: /\s/,
+    // },
+    {
         key: 'quote',
         category: SyntaxCategories.BLOCK,
-        tag: {
+        groupTag: {
             open: '<blockquote>',
             close: '</blockquote>',
         },
-        start: />\s/,
+        tag: {
+            open: '',
+            close: '',
+        },
+        start: /^>\s/,
     },
     {
         key: 'unordered-list',
@@ -94,7 +118,7 @@ export const markdownSyntaxList: MarkdownSyntax[] = [
             open: '<li>',
             close: '</li>',
         },
-        start: /-\s/,
+        start: /^-\s/,
     },
     {
         key: 'ordered-list',
@@ -114,4 +138,4 @@ export const markdownSyntaxList: MarkdownSyntax[] = [
 
 export const lineMarkdowns = markdownSyntaxList.filter((value) => value.category === SyntaxCategories.LINE);
 export const elementMarkdowns = markdownSyntaxList.filter((value) => value.category === SyntaxCategories.ELEMENT);
-
+export const blockMarkdowns = markdownSyntaxList.filter((value) => value.category === SyntaxCategories.BLOCK);

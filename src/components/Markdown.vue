@@ -12,7 +12,7 @@ defineProps({
 
 <template>
   <div class="container">
-    <h1 class="title">Write here:</h1>
+    <h1 class="title">Write here</h1>
     <textarea
       class="text"
       :value="text"
