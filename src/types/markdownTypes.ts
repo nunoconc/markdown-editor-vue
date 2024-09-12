@@ -3,6 +3,7 @@ export enum SyntaxCategories {
     'LINE',
     'GROUP',
     'BLOCK',
+    'BREAK',
 }
 
 export interface MarkdownSyntax {
@@ -10,7 +11,8 @@ export interface MarkdownSyntax {
     category: SyntaxCategories.ELEMENT
     | SyntaxCategories.LINE
     | SyntaxCategories.GROUP
-    | SyntaxCategories.BLOCK,
+    | SyntaxCategories.BLOCK
+    | SyntaxCategories.BREAK,
     groupTag?: {
         open: string,
         close: string,
@@ -55,6 +57,24 @@ export const markdownSyntaxList: MarkdownSyntax[] = [
         end: /\r\s /,
     },
     {
+        key: 'horizontal-line-break',
+        category: SyntaxCategories.BREAK,
+        tag: {
+            open: '<hr>',
+            close: '',
+        },
+        start: /^---$/,
+    },
+    {
+        key: 'end-line-break',
+        category: SyntaxCategories.BREAK,
+        tag: {
+            open: '<br>',
+            close: '',
+        },
+        start: /\\$/,
+    },
+    {
         key: 'bold',
         category: SyntaxCategories.ELEMENT,
         tag: {
@@ -75,25 +95,15 @@ export const markdownSyntaxList: MarkdownSyntax[] = [
         end: /\*{1}/,
     },
     {
-        key: 'break',
+        key: 'mark',
         category: SyntaxCategories.ELEMENT,
         tag: {
-            open: '<p>',
-            close: '</p>',
+            open: '<mark>',
+            close: '</mark>',
         },
-        start: /\\^/,
-        end: /\\^/,
+        start: /`{1}/,
+        end: /`{1}/,
     },
-    // {
-    //     key: 'mark',
-    //     category: SyntaxCategories.ELEMENT,
-    //     tag: {
-    //         open: '<mark>',
-    //         close: '</mark>',
-    //     },
-    //     start: /#[^\s]/,
-    //     end: /\s/,
-    // },
     {
         key: 'quote',
         category: SyntaxCategories.BLOCK,
@@ -139,3 +149,5 @@ export const markdownSyntaxList: MarkdownSyntax[] = [
 export const lineMarkdowns = markdownSyntaxList.filter((value) => value.category === SyntaxCategories.LINE);
 export const elementMarkdowns = markdownSyntaxList.filter((value) => value.category === SyntaxCategories.ELEMENT);
 export const blockMarkdowns = markdownSyntaxList.filter((value) => value.category === SyntaxCategories.BLOCK);
+export const breakMarkdowns = markdownSyntaxList.filter((value) => value.category === SyntaxCategories.BREAK);
+

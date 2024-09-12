@@ -1,11 +1,30 @@
-import { blockMarkdowns, elementMarkdowns, lineMarkdowns, type MarkdownSyntax } from '../types/markdownTypes';
+import { blockMarkdowns, breakMarkdowns, elementMarkdowns, lineMarkdowns, type MarkdownSyntax } from '../types/markdownTypes';
 
+
+
+function replaceBreakSyntax(value: string): string {
+    let result = '';
+
+    const breakElement = breakMarkdowns.find((element) => {
+        const results = element.start.exec(value);
+
+        if(!!results?.length) {
+            return element;
+        }
+    })
+
+    if(breakElement) {
+        result = value.replace(breakElement.start, breakElement.tag.open);
+    }
+
+    return result;
+}
 
 function replaceLineSyntax(value: string): string {
-    let result = value;
+    let result = '';
 
     const lineElement = lineMarkdowns.find((element) => {
-        const results = element.start.exec(result);
+        const results = element.start.exec(value);
 
         if(!!results?.length) {
             return element;
@@ -13,7 +32,7 @@ function replaceLineSyntax(value: string): string {
     })
 
     if(lineElement) {
-        result = result.replace(lineElement.start, lineElement.tag.open) + lineElement.tag.close;
+        result = `<br> ${value.replace(lineElement.start, lineElement.tag.open)}${lineElement.tag.close}`;
     }
 
     return result;
@@ -23,16 +42,18 @@ function replaceElementSyntax(element: MarkdownSyntax, value: string): string {
     let result = value;
 
     result = result.replace(element.start, element.tag.open); 
-    result = result.replace(element.end!, element.tag.close); 
+    if(element.end) {
+        result = result.replace(element.end, element.tag.close); 
+    }
 
     return result;
 }
 
 function replaceBlockSyntax(value: string): { result: string, blockElement: MarkdownSyntax | undefined } {
-    let result = value;
+    let result = '';
 
     const blockElement = blockMarkdowns.find((element) => {
-        const results = element.start.exec(result);
+        const results = element.start.exec(value);
 
         if(!!results?.length) {
             return element;
@@ -40,7 +61,7 @@ function replaceBlockSyntax(value: string): { result: string, blockElement: Mark
     })
 
     if(blockElement) {
-        result = result.replace(blockElement.start, blockElement.tag.open) + blockElement.tag.close;
+        result = value.replace(blockElement.start, blockElement.tag.open)
     }
 
     return {
@@ -53,43 +74,54 @@ export const translateMarkdownToHTML = (markdown: string) => {
 
     return markdown.split(/\n/).reduce(({acc, oldBlock}, curr) => {
         let row = curr;
-        let parapragh = true;
-        
+        let parapragh = row.replace('\s', '') === '';
+
+        //Adding break syntax, unique in line
+        const breakReplaceRow = replaceBreakSyntax(row);
+        if(breakReplaceRow) {
+            row = breakReplaceRow;
+        }
+
         // Adding line syntax, only one per line
-        row = replaceLineSyntax(row);
-
-
-        // Adding block syntax, multiple in block 
-        const { result, blockElement } = replaceBlockSyntax(row);
-        
-        if(result) {
-            row = result;
-            parapragh = blockElement?.key === 'quote';
-        }
-
-        if(!oldBlock && blockElement) {
-            row = blockElement.groupTag?.open + row;
-            oldBlock = blockElement;
-            parapragh = false;
-        }
-
-        if(!blockElement && oldBlock) {
-            row = row + oldBlock.groupTag?.close;
-            parapragh = false;
-            oldBlock = undefined;
-        }
+        const lineReplaceRow = replaceLineSyntax(row);   
+        if(lineReplaceRow) {
+            row = lineReplaceRow;
+        }   
 
         // Adding element syntax, loop for multiple in the same row
         elementMarkdowns.forEach((element) => {
             const n = element.start.exec(row)?.length || 0;
 
-            for(let i = 0; i <= n; ++i) {
+            for(let i = 0; i < n; ++i) {
                 row = replaceElementSyntax(element, row);
             }
         })
 
+        // Adding block syntax, multiple in block 
+        const { result, blockElement } = replaceBlockSyntax(row);
+        
+         
+        if(result && blockElement) {
+            row = breakMarkdowns || lineReplaceRow ? result : result + blockElement.tag.close;
+            parapragh = blockElement?.key === 'quote';
+        }
+
+        if(!oldBlock && blockElement) {
+            row = blockElement.groupTag?.open + row;
+            parapragh = false;
+            oldBlock = blockElement;
+        }
+
+        if(!blockElement && oldBlock) {
+            row = oldBlock.groupTag?.close + row;
+            parapragh = false;
+            oldBlock = undefined;
+        }
+        
+        
+
         return {
-            acc: `${acc}${parapragh ? '<p></p>' : ''}${row}`,
+            acc: `${acc}${parapragh ? '<br>' : ''}${row}`,
             oldBlock,
         }
         

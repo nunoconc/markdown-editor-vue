@@ -12,11 +12,13 @@ defineProps({
 
 <template>
   <div class="container">
-    <h1 class="title">Write here</h1>
+    <h1 class="title">Write here ...</h1>
+    <hr>
     <textarea
       class="text"
       :value="text"
-      @input="(event: Event) => store.commit('saveMarkdown', (event.target as HTMLInputElement).value)">
+      @input="(event: Event) => store.commit('saveMarkdown', (event.target as HTMLInputElement).value)"
+      >
     </textarea>
   </div>
 </template>

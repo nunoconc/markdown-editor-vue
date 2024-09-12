@@ -11,7 +11,8 @@ defineProps({
 
 <template>
   <div class="container">
-    <h1 class="title">Check here</h1>
+    <h1 class="title">Result</h1>
+    <hr>
     <div
         class="text"
         v-html="translateMarkdownToHTML(text)"
@@ -39,5 +40,6 @@ defineProps({
   height: 100%;
   background-color: inherit;
   color: inherit;
+  overflow-y: scroll;
 }
 </style>

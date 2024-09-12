@@ -5,7 +5,6 @@ import {onMounted, ref, watch} from 'vue';
 import store from './store';
 
 const text = ref("");
-const url = ref("");
 
 onMounted(()=>{
   text.value = store.state.markdown;
@@ -13,7 +12,7 @@ onMounted(()=>{
 
 watch(store.state, (state)=>{
   text.value = state.markdown;
-  url.value = state.url;
+  console.log("update");
 })
 
 </script>

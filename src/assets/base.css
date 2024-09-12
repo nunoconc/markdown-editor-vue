@@ -83,3 +83,19 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+mark {
+  background-color: rgb(214, 214, 214);
+  color: black;
+  border-radius: 6px;
+  font-size: 85%;
+  padding: .2em .4em;
+}
+
+blockquote {
+  color: rgb(67, 67, 67);
+  font-size: 85%;
+  content: open-quote;
+  padding: 10px;
+  background:#EDEDED;
+}
