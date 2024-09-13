@@ -98,4 +98,5 @@ blockquote {
   content: open-quote;
   padding: 10px;
   background:#EDEDED;
+  border-radius: 6px;
 }

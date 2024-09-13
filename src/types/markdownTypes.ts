@@ -131,6 +131,19 @@ export const markdownSyntaxList: MarkdownSyntax[] = [
         start: /^-\s/,
     },
     {
+        key: 'unordered-list-2',
+        category: SyntaxCategories.BLOCK,
+        groupTag: {
+            open: '<ul>',
+            close: '</ul>',
+        },
+        tag: {
+            open: '<li>',
+            close: '</li>',
+        },
+        start: /^[*]\s/,
+    },
+    {
         key: 'ordered-list',
         category: SyntaxCategories.BLOCK,
         groupTag: {

@@ -1,4 +1,7 @@
-# vue-project
+# Markdown Editor Vue Project
+
+Visit the website at 
+[https://nunoconc.github.io/markdown-editor-vue/](https://nunoconc.github.io/markdown-editor-vue/)
 
 This template should help get you started developing with Vue 3 in Vite.
 

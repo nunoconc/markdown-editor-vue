@@ -88,15 +88,6 @@ export const translateMarkdownToHTML = (markdown: string) => {
             row = lineReplaceRow;
         }   
 
-        // Adding element syntax, loop for multiple in the same row
-        elementMarkdowns.forEach((element) => {
-            const n = element.start.exec(row)?.length || 0;
-
-            for(let i = 0; i < n; ++i) {
-                row = replaceElementSyntax(element, row);
-            }
-        })
-
         // Adding block syntax, multiple in block 
         const { result, blockElement } = replaceBlockSyntax(row);
         
@@ -117,8 +108,15 @@ export const translateMarkdownToHTML = (markdown: string) => {
             parapragh = false;
             oldBlock = undefined;
         }
-        
-        
+
+        // Adding element syntax, loop for multiple in the same row
+        elementMarkdowns.forEach((element) => {
+            const n = element.start.exec(row)?.length || 0;
+
+            for(let i = 0; i < n; ++i) {
+                row = replaceElementSyntax(element, row);
+            }
+        })
 
         return {
             acc: `${acc}${parapragh ? '<br>' : ''}${row}`,
