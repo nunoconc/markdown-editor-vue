@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/markdown-editor-vue/",
   plugins: [
     vue(),
   ],
@@ -14,4 +15,3 @@ export default defineConfig({
     }
   }
 })
-
