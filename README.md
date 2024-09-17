@@ -1,12 +1,11 @@
 # Markdown Editor Vue Project
-Markdown realtime editor to write your documentation and download it.
 
-Visit the website at\
-[https://nunoconc.github.io/markdown-editor-vue/](https://nunoconc.github.io/markdown-editor-vue/)
+https://nunoconc.github.io/markdown-editor-vue
 
-## Objective
-Vue project to improve my skills with the framework.
-
+## Purpose
+Markdown realtime editor to write your documentation and download it.\
+Includes implementation of reading the markdown syntax.\
+Saves all text inside browser local storage.
 
 ## Structure
 
